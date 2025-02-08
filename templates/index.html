@@ -41,6 +41,9 @@
             border-radius: 5px;
             cursor: pointer;
             transition: 0.3s;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
         }
         button:hover {
             background: #218838;
@@ -84,7 +87,26 @@
         .line-button:hover {
             background: #05A14C;
         }
-    </style>
+    .contact-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .contact-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .contact-button:hover {
+            background: #0056b3;
+        }
+        </style>
 </head>
 <body>
     <div class="container">
@@ -113,6 +135,13 @@
             <button type="submit">レシピを検索</button>
         </form>
         
+        
+        
+        <div class="contact-container">
+            <p>ご質問・お問い合わせはこちら</p>
+            <a href="https://forms.gle/1Mmi3mS3KDHYfNJY7" target="_blank" class="contact-button">お問い合わせ</a>
+        </div>
+        
         <div class="line-info" style="margin-top: 20px; text-align: center;">
     <p>📲 LINEでも簡易版をお試しできます！<br>
     チャットで食材を送るだけでレシピを提案。<br>
@@ -126,5 +155,12 @@
             document.getElementById("slider-value").innerText = val + "人分";
         }
     </script>
+<footer style="width: 100%; margin-top: 50px; padding: 10px; text-align: center; font-size: 12px; color: #666; background: #f8f8f8; border-top: 1px solid #ddd; position: absolute; bottom: 0; left: 0; right: 0;">
+<div class="footer-container" style="display: flex; justify-content: center; align-items: center; gap: 20px; font-size: 12px; color: #666; margin-top: 10px;">
+    <a href="/privacy" class="policy-link" style="color: #666; text-decoration: none;">プライバシーポリシー</a>
+    <span>|</span>
+    <p style="margin: 0;">※ 当サイトはAmazonアソシエイト、楽天アフィリエイトを利用しています。</p>
+</div>
+</footer>
 </body>
 </html>

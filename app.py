@@ -63,5 +63,11 @@ def generate_recipe():
     except Exception as e:
         return render_template('index.html', error=f"エラーが発生しました: {str(e)}")
 
+
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
