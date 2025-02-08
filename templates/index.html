@@ -161,6 +161,13 @@
         document.querySelector("form").addEventListener("submit", function() {
             showLoading();
         });
+
+        function updateSliderValue(val) {
+            document.getElementById("slider-value").innerText = val;
+        }
+        document.querySelector("input[type='range']").addEventListener("input", function() {
+            updateSliderValue(this.value);
+        });
     </script>
 <footer style="width: 100%; margin-top: 50px; padding: 10px; text-align: center; font-size: 12px; color: #666; background: #f8f8f8; border-top: 1px solid #ddd; position: absolute; bottom: 0; left: 0; right: 0;">
     
