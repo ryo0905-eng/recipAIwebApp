@@ -129,11 +129,15 @@
             <div class="slider-container">
                 <label for="servings">人数:</label>
                 <input type="range" name="servings" min="1" max="10" value="2" step="1" oninput="updateSliderValue(this.value)">
-                <span id="slider-value">2人分</span>
+                <span id="slider-value">2</span>
             </div>
 
             <button type="submit">レシピを検索</button>
         </form>
+        
+        <div id="loading" style="display: none; text-align: center; margin-top: 20px;">
+            <p>🔄 レシピを検索中…</p>
+        </div>
         
         
         
@@ -152,10 +156,14 @@
     </div>
     <script>
         function updateSliderValue(val) {
-            document.getElementById("slider-value").innerText = val + "人分";
+            document.getElementById("slider-value").innerText = val;
         }
+        document.querySelector("input[type='range']").addEventListener("input", function() {
+            updateSliderValue(this.value);
+        });
     </script>
 <footer style="width: 100%; margin-top: 50px; padding: 10px; text-align: center; font-size: 12px; color: #666; background: #f8f8f8; border-top: 1px solid #ddd; position: absolute; bottom: 0; left: 0; right: 0;">
+    
 <div class="footer-container" style="display: flex; justify-content: center; align-items: center; gap: 20px; font-size: 12px; color: #666; margin-top: 10px;">
     <a href="/privacy" class="policy-link" style="color: #666; text-decoration: none;">プライバシーポリシー</a>
     <span>|</span>
