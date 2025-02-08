@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RecipAI - レシピ検索</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .select-box, .slider-container {
+            margin-top: 15px;
+            text-align: left;
+        }
+        label {
+            font-weight: bold;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .slider-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        input[type="range"] {
+            width: 80%;
+        }
+        .slider-value {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .line-button {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            background: #06C755;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+        .line-button:hover {
+            background: #05A14C;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>RecipAI 🍽️</h1>
+        <p>食材を入力してレシピを検索！</p>
+        <form action="/recipe" method="post">
+            <input type="text" name="ingredients" placeholder="例: 鶏肉, キャベツ, にんじん">
+            
+            <div class="select-box">
+                <label for="flavor">味付け:</label>
+                <select name="flavor">
+                    <option value="普通" selected>普通</option>
+                    <option value="甘め">甘め</option>
+                    <option value="辛め">辛め</option>
+                    <option value="さっぱり">さっぱり</option>
+                    <option value="こってり">こってり</option>
+                </select>
+            </div>
+            
+            <div class="slider-container">
+                <label for="servings">人数:</label>
+                <input type="range" name="servings" min="1" max="10" value="2" step="1" oninput="updateSliderValue(this.value)">
+                <span id="slider-value">2人分</span>
+            </div>
+
+            <button type="submit">レシピを検索</button>
+        </form>
+        
+        <div class="line-info" style="margin-top: 20px; text-align: center;">
+    <p>📲 LINEでも簡易版をお試しできます！<br>
+    チャットで食材を送るだけでレシピを提案。<br>
+    ぜひ友だち追加してみてください！</p>
+</div>
+        
+        <a href="https://lin.ee/E5XVgIG"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/en.png" alt="友だち追加" height="36" border="0"></a>
+    </div>
+    <script>
+        function updateSliderValue(val) {
+            document.getElementById("slider-value").innerText = val + "人分";
+        }
+    </script>
+</body>
+</html>
