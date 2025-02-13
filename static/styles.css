@@ -1,0 +1,141 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    max-width: 600px;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+h1 {
+    color: #333;
+    font-size: 24px;
+}
+input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+button:hover {
+    background: #218838;
+}
+.select-box, .slider-container {
+    margin-top: 15px;
+    text-align: left;
+}
+label {
+    font-weight: bold;
+}
+select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+input[type="range"] {
+    width: 80%;
+}
+.slider-value {
+    font-weight: bold;
+    margin-left: 10px;
+}
+.line-button {
+    margin-top: 20px;
+    display: inline-block;
+    padding: 10px 20px;
+    background: #06C755;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s;
+    font-weight: bold;
+}
+.line-button:hover {
+    background: #05A14C;
+}
+.contact-container {
+    margin-top: 20px;
+    text-align: center;
+}
+.contact-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+.contact-button:hover {
+    background: #0056b3;
+}
+.recipe-box {
+    margin-top: 20px;
+    padding: 15px;
+    background: #fffbeb;
+    border-left: 5px solid #ffa726;
+    border-radius: 5px;
+    text-align: left;
+    line-height: 1.6;
+    white-space: pre-line;
+    min-height: 200px;
+}
+.back-button, .substitute-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #ffa726;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s;
+    cursor: pointer;
+    border: none;
+}
+.back-button:hover, .substitute-button:hover {
+    background: #fb8c00;
+}
+.substitute-box {
+    display: none;
+    margin-top: 20px;
+    padding: 15px;
+    background: #e3f2fd;
+    border-left: 5px solid #42a5f5;
+    border-radius: 5px;
+    text-align: left;
+    line-height: 1.6;
+}
