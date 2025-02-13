@@ -33,13 +33,14 @@
                     <option value="こってり">こってり</option>
                 </select>
             </div>
-            
-            <div class="slider-container">
+            <div class="stepper-container">
                 <label for="servings">人数:</label>
-                <input type="range" name="servings" min="1" max="10" value="2" step="1" oninput="updateSliderValue(this.value)">
-                <span id="slider-value">2</span>
+                <div class="stepper">
+                    <button type="button" onclick="changeServings(-1)">−</button>
+                    <input type="text" name="servings" id="servings" value="3" readonly>
+                    <button type="button" onclick="changeServings(1)">＋</button>
+                </div>
             </div>
-
             <button type="submit">レシピを検索</button>
         </form>
         
@@ -62,21 +63,6 @@
         
         <a href="https://lin.ee/E5XVgIG"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/en.png" alt="友だち追加" height="36" border="0"></a>
     </div>
-    <script>
-        function showLoading() {
-            document.getElementById("loading").style.display = "block";
-        }
-        document.querySelector("form").addEventListener("submit", function() {
-            showLoading();
-        });
-
-        function updateSliderValue(val) {
-            document.getElementById("slider-value").innerText = val;
-        }
-        document.querySelector("input[type='range']").addEventListener("input", function() {
-            updateSliderValue(this.value);
-        });
-    </script>
 
     <footer style="width: 100%; margin-top: 50px; padding: 10px; text-align: center; font-size: 12px; color: #666; background: #f8f8f8; border-top: 1px solid #ddd; position: relative; clear: both;">
         <div class="footer-container" style="display: flex; justify-content: center; align-items: center; gap: 20px; font-size: 12px; color: #666; margin-top: 10px;">
@@ -85,6 +71,24 @@
             <p style="margin: 0;">※ 当サイトはAmazonアソシエイト、楽天アフィリエイトを利用しています。</p>
         </div>
     </footer>
+
+    <script>
+        function showLoading() {
+            document.getElementById("loading").style.display = "block";
+        }
+        document.querySelector("form").addEventListener("submit", function() {
+            showLoading();
+        });
+
+        function changeServings(amount) {
+            let input = document.getElementById("servings");
+            let value = parseInt(input.value, 10);
+            value += amount;
+            if (value < 1) value = 1;
+            if (value > 10) value = 10;
+            input.value = value;
+        }
+    </script>
 
 </body>
     

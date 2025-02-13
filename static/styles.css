@@ -59,18 +59,6 @@ select {
     border-radius: 5px;
     border: 1px solid #ccc;
 }
-.slider-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-input[type="range"] {
-    width: 80%;
-}
-.slider-value {
-    font-weight: bold;
-    margin-left: 10px;
-}
 .line-button {
     margin-top: 20px;
     display: inline-block;
@@ -140,3 +128,53 @@ input[type="range"] {
     text-align: left;
     line-height: 1.6;
 }
+.stepper-container {
+    margin-top: 15px;
+    text-align: center;
+}
+.stepper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.stepper button {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #E0E0E0; /* 優しいグレーでシンプルに */
+    color: #333; /* テキストは濃いグレー */
+}
+/* ホバー時（PC用） */
+.stepper button:hover {
+    background-color: #D6D6D6; /* 少し濃いグレー */
+}
+
+/* アクティブ時（押したときのエフェクト） */
+.stepper button:active {
+    background-color: #BDBDBD;
+}
+
+/* 数値入力フィールド */
+.stepper input {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #FAFAFA; /* 少し柔らかい背景 */
+    color: #333;
+    font-weight: bold;
+    margin: 0 5px;
+}
+
