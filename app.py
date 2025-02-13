@@ -20,9 +20,16 @@ def generate_recipe():
     if not ingredients:
         return render_template('index.html', error="食材を入力してください！")
     
-    # "普通" の場合はプロンプトに反映しない
-    flavor_prompt = f"味付け: {flavor}" if flavor and flavor != "普通" else ""
-    
+    # flavor がリスト（複数選択）である場合の処理
+    if isinstance(flavor, list):
+        # "普通" を除外
+        filtered_flavors = [f for f in flavor if f != "普通"]
+        # 空でなければプロンプトに反映
+        flavor_prompt = f"味付け: {', '.join(filtered_flavors)}" if filtered_flavors else ""
+    else:
+        # "普通" の場合は無視
+        flavor_prompt = f"味付け: {flavor}" if flavor and flavor != "普通" else ""
+        
     prompt = f"""
     以下の食材を使ったレシピを作成してください。
     食材: {ingredients}

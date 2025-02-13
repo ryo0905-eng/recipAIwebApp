@@ -25,14 +25,21 @@
             <input type="text" name="ingredients" placeholder="例: 鶏肉, キャベツ, にんじん">
             <div class="select-box">
                 <label for="flavor">味付け:</label>
-                <select name="flavor">
-                    <option value="普通" selected>普通</option>
-                    <option value="甘め">甘め</option>
-                    <option value="辛め">辛め</option>
-                    <option value="さっぱり">さっぱり</option>
-                    <option value="こってり">こってり</option>
-                </select>
+                <div class="multiselect" onclick="toggleDropdown()">
+                    <div id="selected-values">選択してください</div>
+                    <div class="dropdown-content" id="dropdown">
+                        <label><input type="checkbox" value="普通"> 普通</label>
+                        <label><input type="checkbox" value="甘め"> 甘め</label>
+                        <label><input type="checkbox" value="辛め"> 辛め</label>
+                        <label><input type="checkbox" value="さっぱり"> さっぱり</label>
+                        <label><input type="checkbox" value="こってり"> こってり</label>
+                        <label><input type="checkbox" value="薄め"> 薄め</label>
+                        <label><input type="checkbox" value="濃いめ"> 濃いめ</label>
+                    </div>
+                </div>
+                <input type="hidden" name="flavor" id="flavor-input">
             </div>
+            
             <div class="stepper-container">
                 <label for="servings">人数:</label>
                 <div class="stepper">
@@ -89,7 +96,37 @@
             input.value = value;
         }
     </script>
-
+    <script>
+    function toggleDropdown() {
+        let dropdown = document.getElementById("dropdown");
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+    
+    // 選択した値を表示＆フォームに反映
+    document.querySelectorAll(".dropdown-content input").forEach(input => {
+        input.addEventListener("change", function() {
+            let selectedValues = [];
+            document.querySelectorAll(".dropdown-content input:checked").forEach(checked => {
+                selectedValues.push(checked.value);
+            });
+    
+            document.getElementById("selected-values").textContent = selectedValues.length > 0 
+                ? selectedValues.join(", ") 
+                : "選択してください";
+            document.getElementById("flavor-input").value = selectedValues.join(",");
+        });
+    });
+    
+    // クリック外で閉じる
+    document.addEventListener("click", function(event) {
+        let multiselect = document.querySelector(".multiselect");
+        let dropdown = document.getElementById("dropdown");
+    
+        if (!multiselect.contains(event.target)) {
+            dropdown.style.display = "none";
+        }
+    });
+    </script>
 </body>
     
 

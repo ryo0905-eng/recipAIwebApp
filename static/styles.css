@@ -178,3 +178,39 @@ select {
     margin: 0 5px;
 }
 
+.multiselect {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    position: relative;
+    cursor: pointer;
+}
+
+#selected-values {
+    font-size: 16px;
+    color: #666;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    width: 100%;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    padding: 5px;
+}
+
+.dropdown-content label {
+    display: block;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.dropdown-content label:hover {
+    background: #f0f0f0;
+}
