@@ -6,18 +6,21 @@ body {
     background-color: #f8f8f8;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     display: flex;
     flex-direction: column;
+
 }
 
 .container {
-    max-width: 600px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 80%;
     background: white;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     text-align: center;
+    margin: auto;
 }
 h1 {
     color: #333;
@@ -118,16 +121,18 @@ select {
 .back-button:hover, .substitute-button:hover {
     background: #fb8c00;
 }
-.substitute-box {
-    display: none;
+.substitutes-box {
     margin-top: 20px;
     padding: 15px;
-    background: #e3f2fd;
-    border-left: 5px solid #42a5f5;
+    background: #ebf8ff;
+    border-left: 5px solid #26acff;
     border-radius: 5px;
     text-align: left;
     line-height: 1.6;
+    white-space: pre-line;
+    min-height: 200px;
 }
+
 .stepper-container {
     margin-top: 15px;
     text-align: center;

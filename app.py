@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, Response
+from flask import Flask, render_template, request, Response, jsonify
 import openai
 import os
 
@@ -11,25 +11,21 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 def home():
     return render_template('index.html')
 
-@app.route('/recipe', methods=['POST'])
+# 🚀 変更: `POST` リクエストで JSON を受け取り、JSON で返す
+@app.route('/get_recipe', methods=['POST'])
 def generate_recipe():
-    ingredients = request.form.get('ingredients')
-    flavor = request.form.get('flavor')
-    servings = request.form.get('servings')
-    
+    data = request.get_json()
+    ingredients = data.get("ingredients", "")
+    flavor = data.get("flavor", [])
+    servings = data.get("servings", "")
+
     if not ingredients:
-        return render_template('index.html', error="食材を入力してください！")
+        return jsonify({"error": "食材を入力してください！"}), 400
     
-    # flavor がリスト（複数選択）である場合の処理
-    if isinstance(flavor, list):
-        # "普通" を除外
-        filtered_flavors = [f for f in flavor if f != "普通"]
-        # 空でなければプロンプトに反映
-        flavor_prompt = f"味付け: {', '.join(filtered_flavors)}" if filtered_flavors else ""
-    else:
-        # "普通" の場合は無視
-        flavor_prompt = f"味付け: {flavor}" if flavor and flavor != "普通" else ""
-        
+    # "普通" を除外
+    filtered_flavors = [f for f in flavor if f != "普通"]
+    flavor_prompt = f"味付け: {', '.join(filtered_flavors)}" if filtered_flavors else ""
+
     prompt = f"""
     以下の食材を使ったレシピを作成してください。
     食材: {ingredients}
@@ -42,7 +38,7 @@ def generate_recipe():
     2. 材料リスト（{servings}人分）
     3. 作り方
     """
-    
+
     try:
         client = openai.OpenAI(api_key=OPENAI_API_KEY)
         response = client.chat.completions.create(
@@ -50,7 +46,7 @@ def generate_recipe():
             messages=[{"role": "user", "content": prompt}]
         )
         recipe_text = response.choices[0].message.content
-        
+
         # 代替品の提案
         substitute_prompt = f"""
         以下のレシピの材料に代替可能な食材があれば提案してください。
@@ -59,16 +55,17 @@ def generate_recipe():
         1. 代替可能な材料
         2. 代替品リスト（用途に応じて）
         """
-        
+
         substitute_response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[{"role": "user", "content": substitute_prompt}]
         )
         substitute_text = substitute_response.choices[0].message.content
-        
-        return render_template('recipe.html', ingredients=ingredients, recipe=recipe_text, substitutes=substitute_text)
+
+        return jsonify({"recipe": recipe_text, "substitutes": substitute_text})
+    
     except Exception as e:
-        return render_template('index.html', error=f"エラーが発生しました: {str(e)}")
+        return jsonify({"error": f"エラーが発生しました: {str(e)}"}), 500
 
 
 @app.route('/privacy')
