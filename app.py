@@ -11,7 +11,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 def home():
     return render_template('index.html')
 
-# 🚀 変更: `POST` リクエストで JSON を受け取り、JSON で返す
+# 🚀 レシピ生成をストリーミング対応
 @app.route('/get_recipe', methods=['POST'])
 def generate_recipe():
     data = request.get_json()
@@ -39,41 +39,65 @@ def generate_recipe():
     3. 作り方
     """
 
-    try:
-        client = openai.OpenAI(api_key=OPENAI_API_KEY)
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[{"role": "user", "content": prompt}]
-        )
-        recipe_text = response.choices[0].message.content
+    def generate():
+        try:
+            client = openai.OpenAI(api_key=OPENAI_API_KEY)
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[{"role": "user", "content": prompt}],
+                stream=True  # ストリーミング対応
+            )
 
-        # 代替品の提案
-        substitute_prompt = f"""
-        以下のレシピの材料に代替可能な食材があれば提案してください。
-        レシピ: {recipe_text}
-        出力フォーマット:
-        1. 代替可能な材料
-        2. 代替品リスト（用途に応じて）
-        """
+            # ストリーミングされたレスポンスを1文字ずつ送信
+            for chunk in response:
+                if chunk.choices[0].delta.content:
+                    yield chunk.choices[0].delta.content  # 一文字ずつ送る
+            
+        except Exception as e:
+            yield f"エラーが発生しました: {str(e)}"
 
-        substitute_response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[{"role": "user", "content": substitute_prompt}]
-        )
-        substitute_text = substitute_response.choices[0].message.content
+    return Response(generate(), content_type='text/plain; charset=utf-8')
 
-        return jsonify({"recipe": recipe_text, "substitutes": substitute_text})
-    
-    except Exception as e:
-        return jsonify({"error": f"エラーが発生しました: {str(e)}"}), 500
+
+@app.route('/get_substitutes', methods=['POST'])
+def generate_substitutes():
+    data = request.get_json()
+    recipe_text = data.get("recipe", "")
+
+    if not recipe_text:
+        return jsonify({"error": "レシピがありません！"}), 400
+
+    substitute_prompt = f"""
+    以下のレシピの材料に代替可能な食材があれば提案してください。
+    レシピ: {recipe_text}
+    出力フォーマット:
+    1. 代替可能な材料
+    2. 代替品リスト（用途に応じて）
+    """
+
+    def generate():
+        try:
+            client = openai.OpenAI(api_key=OPENAI_API_KEY)
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[{"role": "user", "content": substitute_prompt}],
+                stream=True  # ストリーミング対応
+            )
+
+            for chunk in response:
+                if chunk.choices[0].delta.content:
+                    yield chunk.choices[0].delta.content  # 一文字ずつ送る
+
+        except Exception as e:
+            yield f"エラーが発生しました: {str(e)}"
+
+    return Response(generate(), content_type='text/plain; charset=utf-8')
 
 
 @app.route('/privacy')
 def privacy():
     return render_template('privacy.html')
 
-
-from flask import Response
 
 @app.route('/sitemap.xml')
 def sitemap():

@@ -20,7 +20,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     text-align: center;
-    margin: auto;
+    margin: 20px auto;
 }
 h1 {
     color: #333;
@@ -218,4 +218,29 @@ select {
 
 .dropdown-content label:hover {
     background: #f0f0f0;
+}
+
+.substitutes-button-container {
+    display: flex;
+    text-align: center;
+    justify-content: center; /* 水平方向の中央揃え */
+    align-items: center; /* 垂直方向の中央揃え（必要なら） */
+    margin-top: 20px;
+    width: 100%; /* 幅を100%にする */
+}
+
+#suggest-substitutes {
+    display: none; /* 初期は非表示 */
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#suggest-substitutes:hover {
+    background-color: #0056b3;
 }
