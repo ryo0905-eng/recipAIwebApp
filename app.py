@@ -63,6 +63,7 @@ def generate_recipe():
     2. 予想調理時間
     3. 材料リスト（{servings}人分）
     4. 作り方
+    5. 栄養情報（カロリー、タンパク質、脂質、炭水化物の値を示す）
     """
     print(prompt)
     def generate():
