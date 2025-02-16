@@ -33,13 +33,15 @@ document.addEventListener("DOMContentLoaded", function () {
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
             let resultContainer = document.querySelector("#recipe-result p");
+            let fullRecipe = "";
 
             while (true) {
                 const { done, value } = await reader.read();
                 if (done) break;
                 resultContainer.innerText += decoder.decode(value, { stream: true });
-            }
 
+            }
+            document.getElementById("recipe-result").setAttribute("data-full-recipe", resultContainer.innerText); // ✅ レシピを属性に格納
             document.getElementById("suggest-substitutes").style.display = "block";
 
         } catch (error) {
@@ -123,9 +125,81 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // ✅ お気に入りレシピの保存・削除機能
+    function saveRecipe() {
+        let recipeText = document.getElementById("recipe-result").getAttribute("data-full-recipe") || "";
+        if (!recipeText.trim()) {
+            alert("保存するレシピがありません！");
+            return;
+        }
+
+        let recipeLines = recipeText.split("\n");
+        let recipeName = recipeLines.length > 0 ? recipeLines[1] : "レシピ";
+
+        let savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+        let recipeData = { name: recipeName, text: recipeText };
+
+        if (!savedRecipes.some(r => r.name === recipeName)) {
+            savedRecipes.push(recipeData);
+            localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
+        } else {
+            alert("このレシピはすでに保存されています！");
+        }
+
+        displaySavedRecipes();
+    }
+
+    function displaySavedRecipes() {
+        let savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+        let savedList = document.getElementById("saved-recipes");
+        savedList.innerHTML = "";
+
+        savedRecipes.forEach((recipe, index) => {
+            let li = document.createElement("li");
+            li.textContent = recipe.name;
+            li.style.cursor = "pointer";
+            li.onclick = function () {
+                displayRecipeDetail(index);
+            };
+
+            let deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "🗑 削除";
+            deleteBtn.onclick = function (event) {
+                event.stopPropagation();
+                removeRecipe(index);
+            };
+
+            li.appendChild(deleteBtn);
+            savedList.appendChild(li);
+        });
+    }
+
+    function displayRecipeDetail(index) {
+        let savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+        if (savedRecipes[index]) {
+            document.getElementById("selected-recipe-text").innerText = savedRecipes[index].text;
+            document.getElementById("selected-recipe").style.display = "block"; // ✅ 詳細を表示
+        } else {
+            document.getElementById("selected-recipe").style.display = "none"; // ✅ レシピがない場合は非表示
+        }
+    }
+
+    function removeRecipe(index) {
+        let savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+        savedRecipes.splice(index, 1);
+        localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
+        displaySavedRecipes();
+    }
+
+
+
     // グローバル関数として登録
     window.fetchRecipe = fetchRecipe;
     window.fetchSubstitutes = fetchSubstitutes;
     window.changeServings = changeServings;
     window.toggleDropdown = toggleDropdown;
+    window.saveRecipe = saveRecipe;
+
+    displaySavedRecipes();
+
 });

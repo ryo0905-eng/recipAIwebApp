@@ -130,16 +130,27 @@
     
         </div>
         
-
         <button onclick="fetchRecipe()">レシピを検索</button>
-
         <div id="recipe-result" class="recipe-box" style="margin-top: 20px;"></div>
+        <button onclick="saveRecipe()">⭐ お気に入りに保存</button>
         <div class="substitutes-button-container">
             <button id="suggest-substitutes" onclick="fetchSubstitutes()">
                 代替品を提案
             </button>
         </div>
         <div id="substitutes-result" class="substitutes-box" style="margin-top: 20px;"></div>
+
+        <h2>⭐ お気に入りレシピ</h2>
+        <div id="saved-recipes-container">
+            <ul id="saved-recipes"></ul>
+        </div>
+        
+        <div id="selected-recipe" class="recipe-detail" style="display: none;">
+            <h2>選択したレシピ</h2>
+            <p id="selected-recipe-text"></p>
+        </div>
+        
+
     </div>
 
     <footer style="width: 100%; margin-top: 50px; padding: 10px; text-align: center; font-size: 12px; color: #666; background: #f8f8f8; border-top: 1px solid #ddd; position: relative; clear: both;">

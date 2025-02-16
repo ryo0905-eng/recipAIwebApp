@@ -396,3 +396,72 @@ select {
     background: #ff9800;
     color: white;
 }
+
+/* ⭐ お気に入りレシピのデザイン */
+#saved-recipes-container {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+#saved-recipes {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#saved-recipes li {
+    background: #fff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#saved-recipes li:hover {
+    background: #ff9800;
+    color: white;
+}
+
+#saved-recipes li button {
+    background: none;
+    border: none;
+    color: #ff0000;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px;
+    transition: 0.3s;
+}
+
+#saved-recipes li button:hover {
+    color: #cc0000;
+}
+
+/* 📝 選択したレシピのデザイン */
+.recipe-detail {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.recipe-detail h2 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.recipe-detail p {
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: left;
+}
