@@ -304,3 +304,34 @@ select {
     background: #ff9800;
     color: white;
 }
+
+.cooking-tools {
+    margin-top: 15px;
+}
+
+.toggle-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    background: #f0f0f0;
+    border-radius: 20px;
+}
+
+.toggle-container input[type="checkbox"] {
+    display: none;
+}
+
+.toggle-container label {
+    padding: 10px 15px;
+    border-radius: 20px;
+    background: #ddd;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.toggle-container input[type="checkbox"]:checked + label {
+    background: #ff9800;
+    color: white;
+}

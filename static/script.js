@@ -5,7 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
         let servings = document.getElementById("servings").value;
         let cooking_time = document.querySelector("input[name='cooking_time']:checked").value;  // ✅ トグルで選択した調理時間を取得！
         let calorie_option = document.querySelector("input[name='calorie_option']:checked").value;  // ✅ カロリー調整を取得！
+        let cooking_tools = Array.from(document.querySelectorAll("input[name='cooking_tools']:checked")).map(el => el.value);
 
+ 
         if (!ingredients) {
             alert("食材を入力してください！");
             return;
@@ -20,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let response = await fetch("/get_recipe", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ ingredients, flavor, servings, cooking_time, calorie_option })
+                body: JSON.stringify({ ingredients, flavor, servings, cooking_time, calorie_option, cooking_tools })
             });
 
             if (!response.body) {

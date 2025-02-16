@@ -24,6 +24,10 @@ def generate_recipe():
         time_prompt = "15分以内で作れる簡単なレシピにしてください。"
     elif cooking_time == "じっくり":
         time_prompt = "60分以上かけて作る、じっくり煮込むレシピにしてください。"
+    cooking_tools = data.get("cooking_tools", [])
+    tools_prompt = ""
+    if cooking_tools:
+        tools_prompt = f"以下の調理器具のみを使用してください: {', '.join(cooking_tools)}"
 
     if not ingredients:
         return jsonify({"error": "食材を入力してください！"}), 400
@@ -43,7 +47,8 @@ def generate_recipe():
     prompt = f"""
     以下の食材を使ったレシピを作成してください。
     食材: {ingredients}
-    {flavor_prompt}
+    味付け: {flavor_prompt}
+    調理器具: {tools_prompt}
     分量: {servings}人分
     調理時間： {time_prompt}
     カロリー調整: {calorie_prompt}

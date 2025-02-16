@@ -39,6 +39,7 @@
             </div>
             <input type="hidden" id="flavor-input">
         </div>
+        
         <div class="calorie-toggle">
             <label>カロリー調整:</label>
             <div class="toggle-container">
@@ -56,14 +57,24 @@
             </div>
         </div>
 
-        <div class="stepper-container">
-            <label for="servings">人数:</label>
-            <div class="stepper">
-                <button type="button" onclick="changeServings(-1)">−</button>
-                <input type="text" id="servings" value="3" readonly>
-                <button type="button" onclick="changeServings(1)">＋</button>
+        <div class="cooking-tools">
+            <label>使用する調理器具:</label>
+            <div class="toggle-container">
+                <input type="checkbox" id="tool-microwave" name="cooking_tools" value="電子レンジ">
+                <label for="tool-microwave">📡 電子レンジ</label>
+        
+                <input type="checkbox" id="tool-fryingpan" name="cooking_tools" value="フライパン">
+                <label for="tool-fryingpan">🍳 フライパン</label>
+        
+                <input type="checkbox" id="tool-oven" name="cooking_tools" value="オーブン">
+                <label for="tool-oven">🔥 オーブン</label>
+        
+                <input type="checkbox" id="tool-nopot" name="cooking_tools" value="鍋なし">
+                <label for="tool-nopot">🚫 鍋なし</label>
             </div>
         </div>
+        
+
         <div class="cooking-time-toggle">
             <label>調理時間:</label>
             <div class="toggle-container">
@@ -76,7 +87,16 @@
                 <input type="radio" id="time-slow" name="cooking_time" value="じっくり">
                 <label for="time-slow">🔥 じっくり</label>
             </div>
-            
+
+            <div class="stepper-container">
+                <label for="servings">人数:</label>
+                <div class="stepper">
+                    <button type="button" onclick="changeServings(-1)">−</button>
+                    <input type="text" id="servings" value="3" readonly>
+                    <button type="button" onclick="changeServings(1)">＋</button>
+                </div>
+            </div>
+    
         </div>
         
 
