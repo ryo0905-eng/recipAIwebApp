@@ -28,7 +28,11 @@ def generate_recipe():
     tools_prompt = ""
     if cooking_tools:
         tools_prompt = f"以下の調理器具のみを使用してください: {', '.join(cooking_tools)}"
-
+    allergy_list = data.get("allergy_list", [])
+    allergy_prompt = ""
+    if allergy_list:
+        allergy_prompt = f"以下の食材を使用しないでください: {', '.join(allergy_list)}"
+  
     if not ingredients:
         return jsonify({"error": "食材を入力してください！"}), 400
     calorie_option = data.get("calorie_option", "標準")  # ✅ カロリー調整オプション
@@ -46,6 +50,7 @@ def generate_recipe():
 
     prompt = f"""
     以下の食材を使ったレシピを作成してください。
+    アレルギー: {allergy_prompt}
     食材: {ingredients}
     味付け: {flavor_prompt}
     調理器具: {tools_prompt}
