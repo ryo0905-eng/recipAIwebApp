@@ -27,7 +27,16 @@ def generate_recipe():
 
     if not ingredients:
         return jsonify({"error": "食材を入力してください！"}), 400
-    
+    calorie_option = data.get("calorie_option", "標準")  # ✅ カロリー調整オプション
+    # カロリー調整のプロンプト
+    calorie_prompt = ""
+    if calorie_option == "ヘルシー":
+        calorie_prompt = "低カロリーなレシピにしてください。油を控えめにし、野菜を多めにしてください。"
+    elif calorie_option == "高タンパク":
+        calorie_prompt = "高タンパクなレシピにしてください。鶏胸肉、豆腐、卵、魚などを多く含めてください。"
+    elif calorie_option == "糖質オフ":
+        calorie_prompt = "低糖質なレシピにしてください。白米や砂糖を使わず、代替食材を活用してください。"
+
     # "普通" を除外
     filtered_flavors = [f for f in flavor if f != "普通"]
     flavor_prompt = f"味付け: {', '.join(filtered_flavors)}" if filtered_flavors else ""
@@ -38,7 +47,8 @@ def generate_recipe():
     {flavor_prompt}
     分量: {servings}人分
     調理時間： {time_prompt}
-
+    カロリー調整: {calorie_prompt}
+    
     出力フォーマット:
     1. レシピ名
     2. 予想調理時間
