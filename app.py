@@ -16,7 +16,22 @@ def home():
 def generate_recipe():
     data = request.get_json()
     ingredients = data.get("ingredients", "")
-    flavor = data.get("flavor", [])
+    flavor_option = data.get("flavor_option", "標準")  # ✅ デフォルトは「標準」
+    # 味付けオプションのプロンプトを作成
+    flavor_prompt = ""
+    if flavor_option == "薄め":
+        flavor_prompt = "味付けを控えめにし、素材の味を生かしたレシピにしてください。"
+    elif flavor_option == "濃いめ":
+        flavor_prompt = "味付けをしっかりめにし、ご飯に合う濃い味のレシピにしてください。"
+    elif flavor_option == "スパイシー":
+        flavor_prompt = "スパイスを活用したピリ辛のレシピにしてください。"
+    elif flavor_option == "甘め":
+        flavor_prompt = "砂糖やみりんを活用し、甘めの味付けにしてください。"
+    elif flavor_option == "さっぱり":
+        flavor_prompt = "酢やレモンを使い、さっぱりした味付けにしてください。"
+    elif flavor_option == "こってり":
+        flavor_prompt = "油や濃厚な調味料を活用し、こってりした味付けにしてください。"
+
     servings = data.get("servings", "")
     cooking_time = data.get("cooking_time", "")
     time_prompt = "一般的な調理時間で作るレシピです。"  # デフォルト値を設定
@@ -44,9 +59,6 @@ def generate_recipe():
         calorie_prompt = "高タンパクなレシピにしてください。鶏胸肉、豆腐、卵、魚などを多く含めてください。"
     elif calorie_option == "糖質オフ":
         calorie_prompt = "低糖質なレシピにしてください。白米や砂糖を使わず、代替食材を活用してください。"
-
-    filtered_flavors = [f for f in flavor]
-    flavor_prompt = f"味付け: {', '.join(filtered_flavors)}" if filtered_flavors else ""
 
     prompt = f"""
     以下の食材を使ったレシピを作成してください。

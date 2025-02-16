@@ -366,3 +366,33 @@ select {
     background: #ff9800;
     color: white;
 }
+
+.flavor-toggle {
+    margin-top: 15px;
+}
+
+.toggle-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background: #f0f0f0;
+    border-radius: 20px;
+}
+
+.toggle-container input[type="radio"] {
+    display: none;
+}
+
+.toggle-container label {
+    padding: 10px 15px;
+    border-radius: 20px;
+    background: #ddd;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.toggle-container input[type="radio"]:checked + label {
+    background: #ff9800;
+    color: white;
+}

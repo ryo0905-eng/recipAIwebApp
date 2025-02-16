@@ -23,22 +23,33 @@
         
         <input type="text" id="ingredients" placeholder="例: 鶏肉, キャベツ, にんじん">
         
-        <div class="select-box">
-            <label for="flavor">味付け:</label>
-            <div class="multiselect" onclick="toggleDropdown()">
-                <div id="selected-values">標準</div>
-                <div class="dropdown-content" id="dropdown">
-                    <label><input type="checkbox" value="標準" checked> 標準</label>
-                    <label><input type="checkbox" value="甘め"> 甘め</label>
-                    <label><input type="checkbox" value="辛め"> 辛め</label>
-                    <label><input type="checkbox" value="さっぱり"> さっぱり</label>
-                    <label><input type="checkbox" value="こってり"> こってり</label>
-                    <label><input type="checkbox" value="薄め"> 薄め</label>
-                    <label><input type="checkbox" value="濃いめ"> 濃いめ</label>
-                </div>
+        <div class="flavor-toggle">
+            <label>味付けの選択:</label>
+            <div class="toggle-container">
+                <input type="radio" id="flavor-normal" name="flavor_option" value="標準" checked>
+                <label for="flavor-normal">🍽️ 標準</label>
+        
+                <input type="radio" id="flavor-light" name="flavor_option" value="薄め">
+                <label for="flavor-light">🧂 薄め</label>
+        
+                <input type="radio" id="flavor-rich" name="flavor_option" value="濃いめ">
+                <label for="flavor-rich">🔥 濃いめ</label>
+        
+                <input type="radio" id="flavor-spicy" name="flavor_option" value="スパイシー">
+                <label for="flavor-spicy">🌶 スパイシー</label>
+        
+                <input type="radio" id="flavor-sweet" name="flavor_option" value="甘め">
+                <label for="flavor-sweet">🍯 甘め</label>
+        
+                <input type="radio" id="flavor-refreshing" name="flavor_option" value="さっぱり">
+                <label for="flavor-refreshing">🍋 さっぱり</label>
+        
+                <input type="radio" id="flavor-rich-fatty" name="flavor_option" value="こってり">
+                <label for="flavor-rich-fatty">🥩 こってり</label>
             </div>
-            <input type="hidden" id="flavor-input">
         </div>
+              
+            <input type="hidden" id="flavor-input">
 
         <div class="allergy-list">
             <label>除外したい食材を選択:</label>
