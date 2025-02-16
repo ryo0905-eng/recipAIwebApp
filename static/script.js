@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        document.getElementById("loading").style.display = "block";
+
         document.getElementById("recipe-result").innerHTML = "<h2>レシピ</h2><p></p>";
         document.getElementById("substitutes-result").innerHTML = "";
         document.getElementById("suggest-substitutes").style.display = "none";
@@ -40,11 +40,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 resultContainer.innerText += decoder.decode(value, { stream: true });
             }
 
-            document.getElementById("loading").style.display = "none";
             document.getElementById("suggest-substitutes").style.display = "block";
 
         } catch (error) {
-            document.getElementById("loading").style.display = "none";
             alert("レシピを取得できませんでした: " + error.message);
         }
     }
