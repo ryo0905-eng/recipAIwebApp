@@ -61,7 +61,7 @@ def generate_recipe():
         calorie_prompt = "低糖質なレシピにしてください。白米や砂糖を使わず、代替食材を活用してください。"
 
     prompt = f"""
-    以下の食材を使ったレシピを作成してください。
+    以下の食材を使ったレシピを作成してください。フォーマットの最後に、食欲を唆るような気の利いた一言を入れて下さい。
     アレルギー: {allergy_prompt}
     食材: {ingredients}
     味付け: {flavor_prompt}
