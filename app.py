@@ -37,8 +37,7 @@ def generate_recipe():
     elif calorie_option == "糖質オフ":
         calorie_prompt = "低糖質なレシピにしてください。白米や砂糖を使わず、代替食材を活用してください。"
 
-    # "普通" を除外
-    filtered_flavors = [f for f in flavor if f != "普通"]
+    filtered_flavors = [f for f in flavor]
     flavor_prompt = f"味付け: {', '.join(filtered_flavors)}" if filtered_flavors else ""
 
     prompt = f"""
