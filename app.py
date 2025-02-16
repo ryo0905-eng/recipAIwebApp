@@ -18,6 +18,12 @@ def generate_recipe():
     ingredients = data.get("ingredients", "")
     flavor = data.get("flavor", [])
     servings = data.get("servings", "")
+    cooking_time = data.get("cooking_time", "")
+    time_prompt = "一般的な調理時間で作るレシピです。"  # デフォルト値を設定
+    if cooking_time == "時短":
+        time_prompt = "15分以内で作れる簡単なレシピにしてください。"
+    elif cooking_time == "じっくり":
+        time_prompt = "60分以上かけて作る、じっくり煮込むレシピにしてください。"
 
     if not ingredients:
         return jsonify({"error": "食材を入力してください！"}), 400
@@ -31,14 +37,15 @@ def generate_recipe():
     食材: {ingredients}
     {flavor_prompt}
     分量: {servings}人分
-    入力された食材の量をそのまま考慮し、適切に分量調整してください。
+    調理時間： {time_prompt}
 
     出力フォーマット:
     1. レシピ名
-    2. 材料リスト（{servings}人分）
-    3. 作り方
+    2. 予想調理時間
+    3. 材料リスト（{servings}人分）
+    4. 作り方
     """
-
+    print(prompt)
     def generate():
         try:
             client = openai.OpenAI(api_key=OPENAI_API_KEY)

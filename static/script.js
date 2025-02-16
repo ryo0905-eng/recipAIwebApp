@@ -3,8 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
         let ingredients = document.getElementById("ingredients").value.trim();
         let flavor = Array.from(document.querySelectorAll("input[type='checkbox']:checked")).map(el => el.value);
         let servings = document.getElementById("servings").value;
-
-        if (!ingredients) {
+        let cooking_time = document.querySelector("input[name='cooking_time']:checked").value;  // ✅ トグルで選択した調理時間を取得！
+       if (!ingredients) {
             alert("食材を入力してください！");
             return;
         }
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let response = await fetch("/get_recipe", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ ingredients, flavor, servings })
+                body: JSON.stringify({ ingredients, flavor, servings, cooking_time })
             });
 
             if (!response.body) {

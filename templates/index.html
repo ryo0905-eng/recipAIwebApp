@@ -48,6 +48,20 @@
                 <button type="button" onclick="changeServings(1)">＋</button>
             </div>
         </div>
+        <div class="cooking-time-toggle">
+            <label>調理時間:</label>
+            <div class="toggle-container">
+                <input type="radio" id="time-fast" name="cooking_time" value="時短">
+                <label for="time-fast">⏳ 時短</label>
+        
+                <input type="radio" id="time-normal" name="cooking_time" value="標準" checked>
+                <label for="time-normal">🍳 標準</label>
+        
+                <input type="radio" id="time-slow" name="cooking_time" value="じっくり">
+                <label for="time-slow">🔥 じっくり</label>
+            </div>
+        </div>
+        
 
         <button onclick="fetchRecipe()">レシピを検索</button>
 
