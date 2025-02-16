@@ -64,6 +64,7 @@ def generate_recipe():
     3. 材料リスト（{servings}人分）
     4. 作り方
     5. 栄養情報（カロリー、タンパク質、脂質、炭水化物の値を示す）
+    6. サイドメニュー（相性の良い料理名）
     """
     print(prompt)
     def generate():
