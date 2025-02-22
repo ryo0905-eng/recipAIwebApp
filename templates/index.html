@@ -20,7 +20,12 @@
     <div class="container">
         <h1>RecipAI 🍽️</h1>
         <p>食材を入力してレシピを検索！</p>
-        
+        <h2>🔍 最近の検索</h2>
+        <div id="search-history-container">
+            <ul id="search-history"></ul>
+        </div>
+
+
         <input type="text" id="ingredients" placeholder="例: 鶏肉, キャベツ, にんじん">
         
         <div class="flavor-toggle">
@@ -130,7 +135,7 @@
     
         </div>
         
-        <button onclick="fetchRecipe()">レシピを検索</button>
+        <button id="search-recipe">レシピを検索</button>
         <div id="recipe-result" class="recipe-box" style="margin-top: 20px;"></div>
         <button onclick="saveRecipe()">⭐ お気に入りに保存</button>
         <div class="substitutes-button-container">

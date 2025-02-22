@@ -497,3 +497,51 @@ select {
     color: #666;
     text-decoration: none;
 }
+
+/* 🔍 最近の検索履歴 */
+#search-history-container {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+#search-history {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#search-history li {
+    background: #fff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#search-history li:hover {
+    background: #ff9800;
+    color: white;
+}
+
+#search-history li button {
+    background: none;
+    border: none;
+    color: #ff0000;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+#search-history li button:hover {
+    color: #cc0000;
+}

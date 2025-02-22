@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-    async function fetchRecipe() {
-        let ingredients = document.getElementById("ingredients").value.trim();
+    async function fetchRecipe(ingredients) {
+        if (!ingredients) {
+            ingredients = document.getElementById("ingredients").value.trim(); // 引数がない場合はテキストボックスから取得
+        }
+
         let flavor_option = document.querySelector("input[name='flavor_option']:checked").value;  // ✅ 味付けを取得！
         let servings = document.getElementById("servings").value;
         let cooking_time = document.querySelector("input[name='cooking_time']:checked").value;  // ✅ トグルで選択した調理時間を取得！
@@ -8,12 +11,14 @@ document.addEventListener("DOMContentLoaded", function () {
         let cooking_tools = Array.from(document.querySelectorAll("input[name='cooking_tools']:checked")).map(el => el.value);
         let allergy_list = Array.from(document.querySelectorAll("input[name='allergy']:checked")).map(el => el.value);
 
- 
         if (!ingredients) {
-            alert("食材を入力してください！");
-            return;
+            alert("食材を入力してください！"); // アラートを表示
+            return; // 処理を中断
         }
 
+        displaySavedRecipes();
+        // 検索履歴を保存
+        saveSearchHistory(ingredients);
 
         document.getElementById("recipe-result").innerHTML = "<h2>レシピ</h2><p></p>";
         document.getElementById("substitutes-result").innerHTML = "";
@@ -39,7 +44,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 const { done, value } = await reader.read();
                 if (done) break;
                 resultContainer.innerText += decoder.decode(value, { stream: true });
-
             }
             document.getElementById("recipe-result").setAttribute("data-full-recipe", resultContainer.innerText); // ✅ レシピを属性に格納
             document.getElementById("suggest-substitutes").style.display = "block";
@@ -48,6 +52,60 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("レシピを取得できませんでした: " + error.message);
         }
     }
+
+    function saveSearchHistory(ingredients) {
+        let searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+        if (!searchHistory.includes(ingredients)) {
+            searchHistory.unshift(ingredients);  // ✅ 最新の検索をリストの先頭に追加
+            if (searchHistory.length > 5) searchHistory.pop();  // ✅ 履歴を最大5件までに制限
+            localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+        }
+        displaySearchHistory();
+    }
+
+    function displaySearchHistory() {
+        let searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+        let historyList = document.getElementById("search-history");
+        if (!historyList) {
+            console.error("search-history要素が見つかりません");
+            return;
+        }
+        historyList.innerHTML = "";
+
+        searchHistory.forEach((ingredients) => {
+            let li = document.createElement("li");
+            li.textContent = ingredients;
+            li.style.cursor = "pointer";
+            li.onclick = function () {
+                fetchRecipe(ingredients);
+            };
+
+            let deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "🗑";
+            deleteBtn.style.marginLeft = "10px";
+            deleteBtn.onclick = function (event) {
+                event.stopPropagation();
+                removeSearchHistory(ingredients);
+            };
+
+            li.appendChild(deleteBtn);
+            historyList.appendChild(li);
+        });
+    }
+
+    function removeSearchHistory(ingredients) {
+        let searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+        searchHistory = searchHistory.filter(item => item !== ingredients);
+        localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+        displaySearchHistory();
+    }
+
+    displaySearchHistory();
+
+    document.getElementById("search-recipe").addEventListener("click", function() {
+        fetchRecipe();
+    });
+    document.getElementById("suggest-substitutes").addEventListener("click", fetchSubstitutes);
 
     async function fetchSubstitutes() {
         let recipeText = document.querySelector("#recipe-result p").innerText.trim();
@@ -95,11 +153,6 @@ document.addEventListener("DOMContentLoaded", function () {
         if (value < 1) value = 1;
         if (value > 10) value = 10;
         input.value = value;
-    }
-
-    function toggleDropdown() {
-        let dropdown = document.getElementById("dropdown");
-        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
     }
 
     document.querySelectorAll(".dropdown-content input").forEach(input => {
@@ -191,15 +244,12 @@ document.addEventListener("DOMContentLoaded", function () {
         displaySavedRecipes();
     }
 
-
-
     // グローバル関数として登録
     window.fetchRecipe = fetchRecipe;
     window.fetchSubstitutes = fetchSubstitutes;
     window.changeServings = changeServings;
-    window.toggleDropdown = toggleDropdown;
     window.saveRecipe = saveRecipe;
-
-    displaySavedRecipes();
-
 });
+
+
+
