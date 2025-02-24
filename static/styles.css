@@ -1,99 +1,108 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f4f8; /* 明るい背景色 */
+    color: #333; /* テキストの色 */
     margin: 0;
-    padding: 0;
-    background-color: #f8f8f8;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-
+    padding: 20px;
 }
 
 .container {
-    margin-top: 20px;
-    width: 100%;
-    max-width: 80%;
+    max-width: 600px;
     background: white;
-    padding: 30px;
+    padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    text-align: center;
-    margin: 20px auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    transition: box-shadow 0.3s ease; /* ホバー時の影の変化 */
 }
-h1 {
-    color: #333;
-    font-size: 24px;
+
+.container:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* ホバー時の影の強調 */
 }
-input[type="text"] {
-    width: 80%;
+
+/* 🗨 チャットエリア */
+#chat-box {
+    max-height: 400px;
+    overflow-y: auto;
     padding: 10px;
-    margin-top: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    background: #fff;
+    border-radius: 10px;
+    margin: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    background: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
+
+.chat-message {
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px 0;
+    display: inline-block;
+    max-width: 80%; /* メッセージの最大幅 */
+    word-wrap: break-word; /* 長い単語を折り返す */
+    font-size: 16px; /* フォントサイズを調整 */
+    line-height: 1.5; /* 行間を調整 */
+    background: #f1f1f1; /* メッセージの背景色 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 影を追加 */
+    white-space: pre-wrap; /* 改行を保持 */
 }
-button:hover {
-    background: #218838;
-}
-.select-box, .slider-container {
-    margin-top: 15px;
+
+.bot {
+    background: #d1ecf1; /* ボットのメッセージの背景色 */
     text-align: left;
 }
-label {
-    font-weight: bold;
+
+.user {
+    background: #f8d7da; /* ユーザーのメッセージの背景色 */
+    text-align: right;
 }
-select {
-    width: 100%;
-    padding: 8px;
+
+/* 📌 モーダル */
+.modal {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* モーダルを最前面に */
+}
+
+/* ボタンスタイル */
+button {
+    background-color: #007bff; /* ボタンの背景色 */
+    color: white; /* ボタンのテキスト色 */
+    border: none;
     border-radius: 5px;
-    border: 1px solid #ccc;
-}
-.line-button {
-    margin-top: 20px;
-    display: inline-block;
-    padding: 10px 20px;
-    background: #06C755;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: 0.3s;
-    font-weight: bold;
-}
-.line-button:hover {
-    background: #05A14C;
-}
-.contact-container {
-    margin-top: 20px;
-    text-align: center;
-}
-.contact-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: 0.3s;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* ホバー時の色の変化 */
     font-size: 16px;
-    font-weight: bold;
-    text-align: center;
+    margin-top: 10px; /* 上部マージン */
 }
-.contact-button:hover {
-    background: #0056b3;
+
+button:hover {
+    background-color: #0056b3; /* ホバー時の色 */
 }
+
+/* 📝 自由記述欄 */
+textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-top: 10px; /* 上部マージン */
+}
+
+/* モーダル内のボタン */
+#modify-modal button {
+    margin-top: 10px; /* 上部マージン */
+}
+
+/* レシピの結果表示 */
 .recipe-box {
     margin-top: 20px;
     padding: 15px;
@@ -105,299 +114,9 @@ select {
     white-space: pre-line;
     min-height: 200px;
 }
-.back-button, .substitute-button {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background: #ffa726;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: 0.3s;
-    cursor: pointer;
-    border: none;
-}
-.back-button:hover, .substitute-button:hover {
-    background: #fb8c00;
-}
-.substitutes-box {
-    margin-top: 20px;
-    padding: 15px;
-    background: #ebf8ff;
-    border-left: 5px solid #26acff;
-    border-radius: 5px;
-    text-align: left;
-    line-height: 1.6;
-    white-space: pre-line;
-    min-height: 200px;
-}
 
-.stepper-container {
-    margin-top: 15px;
-    text-align: center;
-}
-.stepper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.stepper button {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s, color 0.3s;
-    background-color: #E0E0E0; /* 優しいグレーでシンプルに */
-    color: #333; /* テキストは濃いグレー */
-}
-/* ホバー時（PC用） */
-.stepper button:hover {
-    background-color: #D6D6D6; /* 少し濃いグレー */
-}
-
-/* アクティブ時（押したときのエフェクト） */
-.stepper button:active {
-    background-color: #BDBDBD;
-}
-
-/* 数値入力フィールド */
-.stepper input {
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #FAFAFA; /* 少し柔らかい背景 */
-    color: #333;
-    font-weight: bold;
-    margin: 0 5px;
-}
-
-.multiselect {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: white;
-    position: relative;
-    cursor: pointer;
-}
-
-#selected-values {
-    font-size: 16px;
-    color: #666;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    width: 100%;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    padding: 5px;
-}
-
-.dropdown-content label {
-    display: block;
-    padding: 5px;
-    cursor: pointer;
-}
-
-.dropdown-content label:hover {
-    background: #f0f0f0;
-}
-
-.substitutes-button-container {
-    display: flex;
-    text-align: center;
-    justify-content: center; /* 水平方向の中央揃え */
-    align-items: center; /* 垂直方向の中央揃え（必要なら） */
-    margin-top: 20px;
-    width: 100%; /* 幅を100%にする */
-}
-
-#suggest-substitutes {
-    display: none; /* 初期は非表示 */
-    padding: 12px 24px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#suggest-substitutes:hover {
-    background-color: #0056b3;
-}
-
-.cooking-time-toggle {
-    margin-top: 15px;
-}
-
-.toggle-container {
-    display: flex;
-    justify-content: space-around;
-    padding: 10px;
-    background: #f0f0f0;
-    border-radius: 20px;
-}
-
-.toggle-container input[type="radio"] {
-    display: none;
-}
-
-.toggle-container label {
-    padding: 10px 15px;
-    border-radius: 20px;
-    background: #ddd;
-    cursor: pointer;
-    transition: 0.3s;
-    font-weight: bold;
-}
-
-.toggle-container input[type="radio"]:checked + label {
-    background: #ff9800;
-    color: white;
-}
-
-.calorie-toggle {
-    margin-top: 15px;
-}
-
-.toggle-container {
-    display: flex;
-    justify-content: space-around;
-    padding: 10px;
-    background: #f0f0f0;
-    border-radius: 20px;
-}
-
-.toggle-container input[type="radio"] {
-    display: none;
-}
-
-.toggle-container label {
-    padding: 10px 15px;
-    border-radius: 20px;
-    background: #ddd;
-    cursor: pointer;
-    transition: 0.3s;
-    font-weight: bold;
-}
-
-.toggle-container input[type="radio"]:checked + label {
-    background: #ff9800;
-    color: white;
-}
-
-.cooking-tools {
-    margin-top: 15px;
-}
-
-.toggle-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 10px;
-    background: #f0f0f0;
-    border-radius: 20px;
-}
-
-.toggle-container input[type="checkbox"] {
-    display: none;
-}
-
-.toggle-container label {
-    padding: 10px 15px;
-    border-radius: 20px;
-    background: #ddd;
-    cursor: pointer;
-    transition: 0.3s;
-    font-weight: bold;
-}
-
-.toggle-container input[type="checkbox"]:checked + label {
-    background: #ff9800;
-    color: white;
-}
-
-.allergy-list {
-    margin-top: 15px;
-}
-
-.toggle-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 10px;
-    background: #f0f0f0;
-    border-radius: 20px;
-}
-
-.toggle-container input[type="checkbox"] {
-    display: none;
-}
-
-.toggle-container label {
-    padding: 10px 15px;
-    border-radius: 20px;
-    background: #ddd;
-    cursor: pointer;
-    transition: 0.3s;
-    font-weight: bold;
-}
-
-.toggle-container input[type="checkbox"]:checked + label {
-    background: #ff9800;
-    color: white;
-}
-
-.flavor-toggle {
-    margin-top: 15px;
-}
-
-.toggle-container {
-    display: flex;
-    justify-content: space-around;
-    padding: 10px;
-    background: #f0f0f0;
-    border-radius: 20px;
-}
-
-.toggle-container input[type="radio"] {
-    display: none;
-}
-
-.toggle-container label {
-    padding: 10px 15px;
-    border-radius: 20px;
-    background: #ddd;
-    cursor: pointer;
-    transition: 0.3s;
-    font-weight: bold;
-}
-
-.toggle-container input[type="radio"]:checked + label {
-    background: #ff9800;
-    color: white;
-}
-
-/* ⭐ お気に入りレシピのデザイン */
-#saved-recipes-container {
+/* 検索履歴のスタイル */
+#search-history-container {
     background: #f9f9f9;
     padding: 15px;
     border-radius: 10px;
@@ -405,66 +124,24 @@ select {
     margin-top: 20px;
 }
 
-#saved-recipes {
+#search-history {
     list-style: none;
     padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
 }
 
-#saved-recipes li {
+#search-history li {
     background: #fff;
     padding: 10px 15px;
     border-radius: 8px;
     cursor: pointer;
-    transition: 0.3s;
-    font-weight: bold;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    transition: background 0.3s;
 }
 
-#saved-recipes li:hover {
-    background: #ff9800;
-    color: white;
+#search-history li:hover {
+    background: #e0e0e0; /* ホバー時の背景色 */
 }
 
-#saved-recipes li button {
-    background: none;
-    border: none;
-    color: #ff0000;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 5px;
-    transition: 0.3s;
-}
-
-#saved-recipes li button:hover {
-    color: #cc0000;
-}
-
-/* 📝 選択したレシピのデザイン */
-.recipe-detail {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-}
-
-.recipe-detail h2 {
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.recipe-detail p {
-    font-size: 16px;
-    line-height: 1.6;
-    text-align: left;
-}
-
+/* フッターのスタイル */
 .footer {
     width: 100%;
     margin-top: 50px;
@@ -488,60 +165,23 @@ select {
     margin-top: 10px;
 }
 
-.policy-link {
-    color: #666;
-    text-decoration: none;
-
-}
-.contact-link {
-    color: #666;
+.policy-link, .contact-link {
+    color: #007bff; /* リンクの色 */
     text-decoration: none;
 }
 
-/* 🔍 最近の検索履歴 */
-#search-history-container {
-    background: #f9f9f9;
+.policy-link:hover, .contact-link:hover {
+    text-decoration: underline; /* ホバー時の下線 */
+}
+
+.customization-container {
+    margin-top: 20px; /* 上部マージン */
     padding: 15px;
+    background: #f9f9f9; /* 背景色 */
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
 }
 
-#search-history {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-#search-history li {
-    background: #fff;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
-    font-weight: bold;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-#search-history li:hover {
-    background: #ff9800;
-    color: white;
-}
-
-#search-history li button {
-    background: none;
-    border: none;
-    color: #ff0000;
-    cursor: pointer;
-    font-size: 16px;
-    transition: 0.3s;
-}
-
-#search-history li button:hover {
-    color: #cc0000;
+#modify-options {
+    margin-top: 10px; /* 上部マージン */
 }

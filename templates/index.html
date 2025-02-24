@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
@@ -18,155 +17,48 @@
 </head>
 <body>
     <div class="container">
-        <h1>RecipAI 🍽️</h1>
-        <p>食材を入力してレシピを検索！</p>
-        <h2>🔍 最近の検索</h2>
-        <div id="search-history-container">
-            <ul id="search-history"></ul>
+        <h1>🍳 RecipAI</h1>
+        <p>食材を入力し、AIと会話しながらレシピを作成！</p>
+        <!-- ユーザー入力 -->
+        <input type="text" id="user-input" placeholder="例: 鶏肉, キャベツ, にんじん">
+        
+        <!-- ✅ 人数設定（+/- で変更可能） -->
+        <div class="servings-container">
+            <h3>人数:</h3>
+            <button onclick="changeServings(-1)">−</button>
+            <span id="servings">2</span> <!-- ✅ ここに ID を追加 -->
+            <button onclick="changeServings(1)">＋</button>
+        </div>
+
+        <button id="search-recipe">送信</button> 
+        
+        <!-- チャットエリア -->
+        <div id="chat-box">
+            <div class="chat-message bot">こんにちは！作りたい料理の食材を教えてください。</div>
+        </div>
+        
+        <!-- カスタマイズオプション -->
+        <div class="customization-container">
+            <h2>レシピをカスタマイズ</h2>
+            <label for="modify-category">変更したいポイントを選んでください：</label>
+            <select id="modify-category" onchange="updateModifyOptions()">
+                <option value="taste">味を変える</option>
+                <option value="health">健康調整</option>
+                <option value="cooking">調理方法</option>
+                <option value="style">料理のジャンル</option>
+            </select>
+
+            <div id="modify-options"></div>
+
+            <textarea id="custom-modification" placeholder="その他のリクエスト（例：もっと塩分控えめに、唐辛子を少し追加して）"></textarea>
+
+            <button onclick="applyModification()">✅ 適用</button>
         </div>
 
 
-        <input type="text" id="ingredients" placeholder="例: 鶏肉, キャベツ, にんじん">
-        
-        <div class="flavor-toggle">
-            <label>味付けの選択:</label>
-            <div class="toggle-container">
-                <input type="radio" id="flavor-normal" name="flavor_option" value="標準" checked>
-                <label for="flavor-normal">🍽️ 標準</label>
-        
-                <input type="radio" id="flavor-light" name="flavor_option" value="薄め">
-                <label for="flavor-light">🧂 薄め</label>
-        
-                <input type="radio" id="flavor-rich" name="flavor_option" value="濃いめ">
-                <label for="flavor-rich">🔥 濃いめ</label>
-        
-                <input type="radio" id="flavor-spicy" name="flavor_option" value="スパイシー">
-                <label for="flavor-spicy">🌶 スパイシー</label>
-        
-                <input type="radio" id="flavor-sweet" name="flavor_option" value="甘め">
-                <label for="flavor-sweet">🍯 甘め</label>
-        
-                <input type="radio" id="flavor-refreshing" name="flavor_option" value="さっぱり">
-                <label for="flavor-refreshing">🍋 さっぱり</label>
-        
-                <input type="radio" id="flavor-rich-fatty" name="flavor_option" value="こってり">
-                <label for="flavor-rich-fatty">🥩 こってり</label>
-            </div>
-        </div>
-              
-            <input type="hidden" id="flavor-input">
-
-        <div class="allergy-list">
-            <label>除外したい食材を選択:</label>
-            <div class="toggle-container">
-                <input type="checkbox" id="allergy-eggs" name="allergy" value="卵">
-                <label for="allergy-eggs">🥚 卵</label>
-        
-                <input type="checkbox" id="allergy-dairy" name="allergy" value="乳製品">
-                <label for="allergy-dairy">🥛 乳製品</label>
-        
-                <input type="checkbox" id="allergy-nuts" name="allergy" value="ナッツ">
-                <label for="allergy-nuts">🌰 ナッツ</label>
-        
-                <input type="checkbox" id="allergy-seafood" name="allergy" value="魚介類">
-                <label for="allergy-seafood">🐟 魚介類</label>
-        
-                <input type="checkbox" id="allergy-gluten" name="allergy" value="グルテン">
-                <label for="allergy-gluten">🍞 グルテン</label>
-            </div>
-        </div>
-        
-        <div class="calorie-toggle">
-            <label>カロリー調整:</label>
-            <div class="toggle-container">
-                <input type="radio" id="calorie-normal" name="calorie_option" value="標準" checked>
-                <label for="calorie-normal">🍽️ 標準</label>
-        
-                <input type="radio" id="calorie-low" name="calorie_option" value="ヘルシー">
-                <label for="calorie-low">🥗 ヘルシー</label>
-        
-                <input type="radio" id="calorie-high" name="calorie_option" value="高タンパク">
-                <label for="calorie-high">💪 高タンパク</label>
-        
-                <input type="radio" id="calorie-lowcarb" name="calorie_option" value="糖質オフ">
-                <label for="calorie-lowcarb">🥩 糖質オフ</label>
-            </div>
-        </div>
-
-        <div class="cooking-tools">
-            <label>使用する調理器具:</label>
-            <div class="toggle-container">
-                <input type="checkbox" id="tool-microwave" name="cooking_tools" value="電子レンジ">
-                <label for="tool-microwave">📡 電子レンジ</label>
-        
-                <input type="checkbox" id="tool-fryingpan" name="cooking_tools" value="フライパン">
-                <label for="tool-fryingpan">🍳 フライパン</label>
-        
-                <input type="checkbox" id="tool-oven" name="cooking_tools" value="オーブン">
-                <label for="tool-oven">🔥 オーブン</label>
-        
-                <input type="checkbox" id="tool-nopot" name="cooking_tools" value="鍋なし">
-                <label for="tool-nopot">🚫 鍋なし</label>
-            </div>
-        </div>
-        
-
-        <div class="cooking-time-toggle">
-            <label>調理時間:</label>
-            <div class="toggle-container">
-                <input type="radio" id="time-fast" name="cooking_time" value="時短">
-                <label for="time-fast">⏳ 時短</label>
-        
-                <input type="radio" id="time-normal" name="cooking_time" value="標準" checked>
-                <label for="time-normal">🍳 標準</label>
-        
-                <input type="radio" id="time-slow" name="cooking_time" value="じっくり">
-                <label for="time-slow">🔥 じっくり</label>
-            </div>
-
-            <div class="stepper-container">
-                <label for="servings">人数:</label>
-                <div class="stepper">
-                    <button type="button" onclick="changeServings(-1)">−</button>
-                    <input type="text" id="servings" value="3" readonly>
-                    <button type="button" onclick="changeServings(1)">＋</button>
-                </div>
-            </div>
-    
-        </div>
-        
-        <button id="search-recipe">レシピを検索</button>
-        <div id="recipe-result" class="recipe-box" style="margin-top: 20px;"></div>
-        <button onclick="saveRecipe()">⭐ お気に入りに保存</button>
-        <div class="substitutes-button-container">
-            <button id="suggest-substitutes" onclick="fetchSubstitutes()">
-                代替品を提案
-            </button>
-        </div>
-        <div id="substitutes-result" class="substitutes-box" style="margin-top: 20px;"></div>
-
-        <h2>⭐ お気に入りレシピ</h2>
-        <div id="saved-recipes-container">
-            <ul id="saved-recipes"></ul>
-        </div>
-        
-        <div id="selected-recipe" class="recipe-detail" style="display: none;">
-            <h2>選択したレシピ</h2>
-            <p id="selected-recipe-text"></p>
-        </div>
     </div>
-
-    <footer class="footer">
-        <div class="footer-container">
-            <a href="https://forms.gle/GyTp2XYjjM1Emg6a8" class="contact-link">お問い合わせ</a>
-            <span>|</span>
-            <a href="/privacy" class="policy-link">プライバシーポリシー</a>
-            <span>|</span>
-            <p>※ 当サイトはAmazonアソシエイト、楽天アフィリエイトを利用しています。</p>
-        </div>
-    </footer>
-
-    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    
 </body>
 </html>
