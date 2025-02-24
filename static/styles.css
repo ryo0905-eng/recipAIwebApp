@@ -3,7 +3,7 @@ body {
     background-color: #f0f4f8; /* 明るい背景色 */
     color: #333; /* テキストの色 */
     margin: 0;
-    padding: 20px;
+    padding: 5px;
 }
 
 h1 {
@@ -27,10 +27,10 @@ h1 {
     width: 30%;
     margin: 0 auto;
     text-align: center;
-    height: 50px;
+    height: 30px;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     font-size: 16px;
     transition: border-color 0.3s ease, box-shadow 0.3s ease; /* ボーダーと影の変化を追加 */
     background-color: #fff; /* 背景色 */
