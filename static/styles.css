@@ -6,18 +6,73 @@ body {
     padding: 20px;
 }
 
+h1 {
+    text-align: center;
+}
 .container {
-    max-width: 600px;
     background: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     margin: auto;
     transition: box-shadow 0.3s ease; /* ホバー時の影の変化 */
+    text-align: center;
 }
 
 .container:hover {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* ホバー時の影の強調 */
+}
+
+.user-input {
+    width: 30%;
+    margin: 0 auto;
+    text-align: center;
+    height: 50px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* ボーダーと影の変化を追加 */
+    background-color: #fff; /* 背景色 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 影を追加 */
+}
+
+.user-input:focus {
+    border-color: #007bff; /* フォーカス時のボーダー色 */
+    outline: none; /* デフォルトのアウトラインを削除 */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* フォーカス時の影 */
+}
+
+.servings-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.servings-button {
+    background-color: #ffae00d4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 24px;
+    margin: 0 5px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.servings-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.servings-button:active {
+    transform: scale(0.95);
 }
 
 /* 🗨 チャットエリア */
@@ -71,7 +126,7 @@ body {
 
 /* ボタンスタイル */
 button {
-    background-color: #007bff; /* ボタンの背景色 */
+    background-color: #ffae00d4; /* ボタンの背景色 */
     color: white; /* ボタンのテキスト色 */
     border: none;
     border-radius: 5px;

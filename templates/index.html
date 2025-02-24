@@ -18,16 +18,15 @@
 <body>
     <div class="container">
         <h1>🍳 RecipAI</h1>
-        <p>食材を入力し、AIと会話しながらレシピを作成！</p>
         <!-- ユーザー入力 -->
-        <input type="text" id="user-input" placeholder="例: 鶏肉, キャベツ, にんじん">
-        
+        <input type="text" id="user-input" class="user-input" placeholder="例: 鶏肉, キャベツ, にんじん">
+
         <!-- ✅ 人数設定（+/- で変更可能） -->
         <div class="servings-container">
             <h3>人数:</h3>
-            <button onclick="changeServings(-1)">−</button>
+            <button class="servings-button" onclick="changeServings(-1)">−</button>
             <span id="servings">2</span> <!-- ✅ ここに ID を追加 -->
-            <button onclick="changeServings(1)">＋</button>
+            <button class="servings-button" onclick="changeServings(1)">＋</button>
         </div>
 
         <button id="search-recipe">送信</button> 
